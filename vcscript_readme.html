@@ -1,0 +1,302 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>README.md</title><style></style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1><a id="VCSCRIPT_Vertexcom_Scripting_Language_0"></a>VCSCRIPT (Vertexcom Scripting Language)</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">A small scripting language created by <strong>Darko Pancev</strong></p>
+<h2 class="code-line" data-line-start=4 data-line-end=5><a id="Overview_4"></a>Overview</h2>
+<p class="has-line-data" data-line-start="6" data-line-end="13"><strong>vcscript</strong> is a small scripting language that is use to simplify hardware automation<br>
+and auto-testing process. It supports various fundamental programming concepts<br>
+such as variable-declaration, function-declaration, function calling,<br>
+conditional statements, loops, proper order of operations and recursion.<br>
+The language syntax is meant to be very readable and intuitive. <strong>vcscript</strong> is<br>
+build on top of the Python programming language. Below are some examples of<br>
+programs that vcscript can run.</p>
+<h2 class="code-line" data-line-start=14 data-line-end=15><a id="Packages_14"></a>Packages</h2>
+<pre><code class="has-line-data" data-line-start="17" data-line-end="23">    vcscript [folder]
+       |----- interperter.py [file] (interpreter implementation)
+       '----- native.py      [file] (native functions implementation)
+    your_script.py [file]
+
+</code></pre>
+<p class="has-line-data" data-line-start="24" data-line-end="25"><strong>your_script.py</strong></p>
+<pre><code class="has-line-data" data-line-start="27" data-line-end="36" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    # put your vcscript code here! #
+
+"""</span>)
+
+</code></pre>
+<h2 class="code-line" data-line-start=37 data-line-end=38><a id="Examples_of_Basic_Programs_37"></a>Examples of Basic Programs</h2>
+<h3 class="code-line" data-line-start=39 data-line-end=40><a id="Basic_Comment_39"></a>Basic Comment</h3>
+<p class="has-line-data" data-line-start="41" data-line-end="42">Syntax:</p>
+<p class="has-line-data" data-line-start="43" data-line-end="44"><strong>comment::=</strong> ‘#’ comment messages ‘#’</p>
+<p class="has-line-data" data-line-start="45" data-line-end="46">Example:</p>
+<pre><code class="has-line-data" data-line-start="48" data-line-end="64" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    # This is a comment and will not be executed #
+
+    #
+
+    This is how to comment multiple line of messages and
+    anything in between this will be ignored by the interpreter and could
+    be use as a note for programmer.
+
+    #
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=65 data-line-end=66><a id="Basic_Variable_Declaration_65"></a>Basic Variable Declaration</h3>
+<p class="has-line-data" data-line-start="67" data-line-end="68">Syntax:</p>
+<p class="has-line-data" data-line-start="69" data-line-end="74"><strong>variable-declaration::=</strong> variable-keyword variable-name assignment-operator variable-body<br>
+<strong>variable-keyword::=</strong> ‘num’ number | ‘str’ string | ‘arr’ array | ‘bool’ boolean | ‘conf’ configuration-parameters<br>
+<strong>variable-name::=</strong> identifier<br>
+<strong>assigment-operator::</strong> ‘=’<br>
+<strong>variable-body::=</strong> value or parameters</p>
+<p class="has-line-data" data-line-start="75" data-line-end="76">Example:</p>
+<pre><code class="has-line-data" data-line-start="78" data-line-end="90" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    num one = 7
+    str hello = "hello"
+    arr array = [1, 2, 3, 4, 5, 6, 7]
+    bool boolean = True
+    conf config = {param1: "test", param2: 123, param3: True}
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=91 data-line-end=92><a id="Basic_Function_Declaration_91"></a>Basic Function Declaration</h3>
+<p class="has-line-data" data-line-start="93" data-line-end="94">Syntax:</p>
+<p class="has-line-data" data-line-start="95" data-line-end="101"><strong>function-declaration::=</strong> function-keyword function-name assignment-operator ( parameters ‘optional’ ) : function-body :<br>
+<strong>function-keyword::=</strong> ‘func’<br>
+<strong>function-name::=</strong> identifier<br>
+<strong>assigment-operator::</strong> ‘=’<br>
+<strong>function-body::=</strong> program<br>
+<strong>function-return-keyword::=</strong> ‘return’</p>
+<p class="has-line-data" data-line-start="102" data-line-end="103">Example:</p>
+<pre><code class="has-line-data" data-line-start="105" data-line-end="119" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    func getHello = () :
+        return "Hello"
+    :
+
+    func add = (num a, num b) :
+        return a + b
+    :
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=120 data-line-end=121><a id="Basic_Conditional_Statements_120"></a>Basic Conditional Statements</h3>
+<p class="has-line-data" data-line-start="122" data-line-end="123">Syntax:</p>
+<p class="has-line-data" data-line-start="124" data-line-end="125"><strong>conditional::=</strong> ‘if’ condition : program : ‘elif’ condition : program : ‘else’ : program :</p>
+<p class="has-line-data" data-line-start="126" data-line-end="127">Example:</p>
+<pre><code class="has-line-data" data-line-start="129" data-line-end="143" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    if 3 == 3 :
+        print("First Condition!")
+    : elif 3 != 2 :
+        print("Second Condition!")
+    : else :
+        print("Third Condition!")
+    :    
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=144 data-line-end=145><a id="Basic_from_Loops_144"></a>Basic ‘from’ Loops</h3>
+<p class="has-line-data" data-line-start="146" data-line-end="147">Syntax:</p>
+<p class="has-line-data" data-line-start="148" data-line-end="149"><strong>from-loop::=</strong> ‘from’ start ‘to’ end ‘with’ variable : program :</p>
+<p class="has-line-data" data-line-start="150" data-line-end="151">Example:</p>
+<pre><code class="has-line-data" data-line-start="153" data-line-end="171" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    from 1 to 3 with i :
+        print(i)
+    :
+
+    # Nested 'from' loops example #
+
+    from 1 to 3 with i :
+        from 1 to 3 with j :
+            print(i, j)
+        :
+    :
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=172 data-line-end=173><a id="Basic_foreach_Loops_172"></a>Basic ‘foreach’ Loops</h3>
+<p class="has-line-data" data-line-start="174" data-line-end="175">Syntax:</p>
+<p class="has-line-data" data-line-start="176" data-line-end="177"><strong>foreach-loop::=</strong> ‘foreach’ variable ‘in’ array (iterable variable) : program :</p>
+<p class="has-line-data" data-line-start="178" data-line-end="179">Example:</p>
+<pre><code class="has-line-data" data-line-start="181" data-line-end="193" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    arr array = [1, 2, 3, 4, 5, 6, 7]
+
+    foreach value in array :
+        print(value)
+    :
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=194 data-line-end=195><a id="Basic_Recursion_194"></a>Basic Recursion</h3>
+<p class="has-line-data" data-line-start="196" data-line-end="197">Example:</p>
+<pre><code class="has-line-data" data-line-start="199" data-line-end="221" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    # Create a fibonacci number #
+
+    func fib = (num n) :
+        if n == 1 :
+            return 0
+        : elif n == 2 :
+            return 1
+        : else :
+            return fib(n - 1) + fib(n - 2)
+        :
+    :
+
+    from 1 to 15 with i :
+        print(i, fib(i))
+    :
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=222 data-line-end=223><a id="Basic_Array_Operations_222"></a>Basic Array Operations</h3>
+<p class="has-line-data" data-line-start="224" data-line-end="225">Example:</p>
+<pre><code class="has-line-data" data-line-start="227" data-line-end="247" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    arr array = [1, 2, 3, 4, 5, 6, 7]
+
+    # get element from specific index on the array #
+
+    num value = index(array, 0)
+
+    print(value) # this will print '1' #
+
+    # push new element to the last of the array #
+
+    push(array, 8)
+
+    print(array) # this will print [1, 2, 3, 4, 5, 6, 7, 8] #
+
+"""</span>)
+</code></pre>
+<h3 class="code-line" data-line-start=248 data-line-end=249><a id="Order_of_Operations_248"></a>Order of Operations</h3>
+<p class="has-line-data" data-line-start="250" data-line-end="251">Example:</p>
+<pre><code class="has-line-data" data-line-start="253" data-line-end="290" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    num one = 1
+    num three = 3
+
+    func add = (num a, num b) :
+        return a + b
+    :
+
+    func echo = (num a) :
+        return a
+    :
+
+    func fib = (num n) :
+        if n == 1 :
+            return 0
+        : elif n == 2 :
+            return 1
+        : else :
+            return fib(n - 1) + fib(n - 2)
+        :
+    :
+
+    # this function is testing the order of the operation and will return 2 as a result #
+
+    func alwaysTwo = (num n) :
+        return ((((n + 47 % (19 * add(-3, 5))) * echo(three - one) - 4) / fib(4) - n + fib(echo(10)) - 29) * 3 - 9) / 3 - (((n + 109 % 10) * 2 - 4) / 2 - n)
+    :
+
+    # the result should be 2, otherwise the order operation is incorrect #
+
+    print(alwaysTwo(4751))
+
+"""</span>)
+</code></pre>
+<h2 class="code-line" data-line-start=291 data-line-end=292><a id="Hardware_Scripting_291"></a>Hardware Scripting</h2>
+<h3 class="code-line" data-line-start=293 data-line-end=294><a id="Basic_Serial_Communication_293"></a>Basic Serial Communication</h3>
+<pre><code class="has-line-data" data-line-start="296" data-line-end="326" class="language-python"><span class="hljs-keyword">from</span> vcscript.interpreter <span class="hljs-keyword">import</span> vcscript
+
+vcscript.input(<span class="hljs-string">"""
+
+    conf serial1 = { port: "dev/ttyUSB1", baudrate: 115200 }
+    conf serial2 = { port: "dev/ttyUSB2", baudrate: 115200 }
+
+    # Example 1 -------------------------------------------------------- #
+
+    str result1 = sendcmd(serial1, "ver")
+    str result2 = sendcmd(serial2, "ver")
+
+    expect "software v1.2" in result1
+    expect "software v1.2" in result2
+
+    print("Software version is up-to-dated")
+
+    # Example 2 -------------------------------------------------------- #
+
+    arr serials = [serial1, serial2]
+
+    foreach serial in serials :
+        str result = sendcmd(serial, "ver")
+        expect "software v1.2" in result
+    :
+
+    print("Software version is up-to-dated")
+
+"""</span>)
+</code></pre>
+<h2 class="code-line" data-line-start=327 data-line-end=328><a id="Remote_Testing_327"></a>Remote Testing</h2>
+<p class="has-line-data" data-line-start="329" data-line-end="332"><strong>vcscript</strong> is capable to use as remote testing because vcscript language is<br>
+a strings with logic information that passed into <strong>vcscript.input()</strong> function as an<br>
+argument. Therefore we can defined our script in RF packet.</p>
+<h3 class="code-line" data-line-start=333 data-line-end=334><a id="Configurations_333"></a>Configurations</h3>
+<pre><code class="has-line-data" data-line-start="336" data-line-end="367"> __________ ______________________________________________
+|          |  RF packet {&quot;&quot;&quot;                              |
+|          |      foreach serial in serials :             |
+|  NODE    |          str result = sendcmd(serial, &quot;ver&quot;) |
+|  Device  |          expect &quot;v1.2&quot; in result             |
+|          |      :                                       |
+|          |  &quot;&quot;&quot;}                                        |
+'----------'----------------------------------------------'
+     .
+     .                              ___________________________________________________________________ 
+     . RF     __________           |   |  vcscript.input(&quot;&quot;&quot;                                           |
+     .       |          |          |   |      conf serial1 = { port: &quot;dev/ttyUSB1&quot;, baudrate: 115200 } |
+     .       |  ROOT    |   UART   | S |      conf serial2 = { port: &quot;dev/ttyUSB2&quot;, baudrate: 115200 } |
+     . . . ..|  Device  |==========| E |      conf serial2 = { port: &quot;dev/ttyUSB3&quot;, baudrate: 115200 } |
+             |          |          | R |      arr serials = [serial1, serial2, serial3]                |
+             '__________'          | V |  &quot;&quot;&quot;)                                                         |
+                                   | E |  while True:                                                  |
+                                   | R |    if scriptIsAvailable():                                    |
+                                   |   |        vcscript.input(getScript())                            |
+                                   '___'_______________________________________________________________'
+                                   |                           RASPBERRY PI                            |
+                                   '-------------------------------------------------------------------'
+                                                                   |  |  |  UART
+                                                     .-------------'  |  '-------------.  
+                                                     | dev/ttyUSB1    | dev/ttyUSB2    | dev/ttyUSB3
+                                                 ____o____        ____o____        ____o____
+                                                |         |      |         |      |         |
+                                                |  DUT 1  |      |  DUT 2  |      |  DUT 3  |
+                                                |         |      |         |      |         |
+                                                '_________'      '_________'      '_________'    
+</code></pre>
+</body></html>
